@@ -1,6 +1,6 @@
 # TIL
 열공 !!
 
-##Directory
+## Directory
 ### JAVASCRIPT30
 ### CS30
