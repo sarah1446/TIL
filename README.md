@@ -1,6 +1,6 @@
 # TIL
 열공 !!
 
-![roadmap](https://user-images.githubusercontent.com/35885674/43686941-9010bdf2-9908-11e8-8bea-1b0ab5911b52.jpg)
+![frontend-v2](https://user-images.githubusercontent.com/35885674/43687183-ee8d9410-990b-11e8-901e-1a50a43124c9.png)
 
 ###### 출처 : https://github.com/devJang/developer-roadmap
