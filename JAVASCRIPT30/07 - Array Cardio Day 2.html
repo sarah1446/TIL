@@ -58,12 +58,8 @@
     const index = comments.findIndex( comment => comment.id === 2039842);//여긴 왜 = 3개?,index 0,1 이상하게나옴
     console.log('인덱스 구하기'+index); //2 나옴
 
-    console.log('test');
-    console.table(comments);
-
     comments.slice(index, 2);
-    console.log('one');
-    console.table(comments); // 왜 하나만 삭제되지?
+    console.table(comments); // 왜 삭제가 안되지?
 
     const newComments = [
         ...comments.slice(0,index),
