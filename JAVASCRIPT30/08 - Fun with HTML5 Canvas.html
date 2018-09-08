@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+
+  const canvas = document.querySelector('#draw');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height= window.innerHeight;
+  ctx.strokeStyle = '#BADA55';
+  ctx.lineJoin ='round';
+  ctx.lineCap = 'round';
+  ctx.lineWidth = 60;
+  // ctx.globalCompositeOperation = 'multiply';
+
+  let isDrawing = false;
+  let lastX = 0;
+  let lastY = 0;
+  let hue = 0;
+  let direction = true;
+
+  function draw(e){
+    if(!isDrawing) return; //(true일때 멈춰라) 긋지 않으면 작동을 멈춰라
+    console.log(e);
+    ctx.strokeStyle= `hsl(${hue}, 100%, 50%)`;
+    ctx.beginPath();
+    //start from
+    ctx.moveTo(lastX, lastY);
+    //go to
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+
+    // lastX = e.offsetX;
+    // lastY = e.offsetY;
+    // lastX, lastY를 한줄로표현한거
+    [lastX, lastY] = [e.offsetX, e.offsetY];
+
+    hue++;
+    if (hue >= 360){
+      hue = 0;
+    }
+    if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1){
+      direction = !direction;
+    }
+    if (direction){
+      ctx.lineWidth++;
+    } else {
+      ctx.lineWidth--;
+    }
+
+    // ctx.lineWidth++;
+  }
+
+  canvas.addEventListener('mousedown',(e) => {
+    isDrawing = true;
+    [lastX, lastY] = [e.offsetX, e.offsetY]; // 클릭해서 긋고, 다른곳에서 클릭해서 그을때 연속되는 선을 막고 새로 클릭한곳에서 시작될 수 있도록 설정
+  });
+  canvas.addEventListener('mousemove', draw);
+  // canvas.addEventListener('mousedown',() => isDrawing = true); //여기에 있어서 연속되는 선밖에 못그어서..? 맨위로
+  canvas.addEventListener('mouseup',() => isDrawing = false);
+  canvas.addEventListener('mouseout',() => isDrawing = false);
+
+</script>
+
+<style>
+  html, body {
+    margin:0;
+  }
+</style>
+
+</body>
+</html>
