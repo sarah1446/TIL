@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+    console.log('hello');
+
+    // Interpolated
+    console.log('Hello I am a %s string!','ㅋ_ㅋ');
+
+    // Styled -> %c 를 문장 앞에 둔다
+    console.log('%c I am some great text','color:lime; font-size:25px');
+
+    // warning!
+    console.warn('No way ~ ~~  ~ ~');
+
+    // Error :|
+    console.error('No errorrrrr ~ ~~  ~ ~');
+
+    // Info
+    console.info('Information!  ! ! ');
+
+    // Testing -> wrong일 경우에만
+    const p = document.querySelector('p');
+    console.assert(p.classList.contains('ouch'), '틀렸어 !  !');
+
+    // clearing
+    console.clear();
+
+    // Viewing DOM Elements
+    console.log(p);
+    console.dir(p); // 안에 있는 프로퍼티,메서드를 볼 수 있음
+
+    console.clear();
+
+    // Grouping together
+    dogs.forEach(dog => {
+      console.group(`${dog.name}`);
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} year old`);
+      console.log(`${dog.name} is ${dog.age * 7} year old`);
+      console.groupEnd(`${dog.name}`);
+    })
+
+    // counting
+    console.count('a');
+    console.count('b');
+    console.count('b');
+    console.count('a');
+    console.count('c');
+    console.count('a');
+    console.count('a');
+    console.count('a');
+    console.count('c');
+
+    // timing
+
+    console.time('fetching data');
+    fetch('https://api.github.com/users/wesbos')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching data');
+        console.log(data);
+      });
+
+    //table
+    console.table(dogs);
+
+  </script>
+</body>
+</html>
