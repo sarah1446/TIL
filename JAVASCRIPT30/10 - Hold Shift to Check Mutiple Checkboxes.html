@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hold Shift to Check Multiple Checkboxes</title>
+</head>
+<body>
+  <style>
+
+    html {
+      font-family: sans-serif;
+      background:#ffc600;
+    }
+
+    .inbox {
+      max-width:400px;
+      margin:50px auto;
+      background:white;
+      border-radius:5px;
+      box-shadow:10px 10px 0 rgba(0,0,0,0.1);
+    }
+
+    .item {
+      display:flex;
+      align-items:center;
+      border-bottom: 1px solid #F1F1F1;
+    }
+
+    .item:last-child {
+      border-bottom:0;
+    }
+
+
+    input:checked + p {
+      background:#F9F9F9;
+      text-decoration: line-through;
+    }
+
+    input[type="checkbox"] {
+      margin:20px;
+    }
+
+    p {
+      margin:0;
+      padding:20px;
+      transition:background 0.2s;
+      flex:1;
+      font-family:'helvetica neue';
+      font-size: 20px;
+      font-weight: 200;
+      border-left: 1px solid #D1E2FF;
+    }
+
+
+  </style>
+   <!--
+   The following is a common layout you would see in an email client.
+
+   When a user clicks a checkbox, holds Shift, and then clicks another checkbox a few rows down, all the checkboxes inbetween those two checkboxes should be checked.
+
+  -->
+  <div class="inbox">
+    <div class="item">
+      <input type="checkbox">
+      <p>This is an inbox layout.</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Check one item</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Hold down your Shift key</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Check a lower item</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Everything inbetween should also be set to checked</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Try do it without any libraries</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Just regular JavaScript</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Good Luck!</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Don't forget to tweet your result!</p>
+    </div>
+  </div>
+
+<script>
+
+  const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+
+  let lastChecked; // 마지막꺼 기록
+
+  function handleCheck(e){
+    // console.log(this);// 여기서 this는 input
+    // console.log(e);  // 여기선 클릭이벤트, e를 찍어보면 shiftkey가 있음 
+   
+
+    let inBetween = false; // 어떨때 플래그 변수를 생각하지..?
+    // console.log(this); //하단에 lastChecked = this할당 해도input 안해도 input인데 왜 결과는 다르지??
+    if (e.shiftKey && this.checked){ // shift키를 누른 상태에서 input체크하는 경우
+      //왜 위에 있는 체크박스가 lastcheck박스로 인식하지?
+      checkboxes.forEach(checkbox => {
+          // if(checkbox === this ){
+          //     console.log('체크박스가 this일 때'); // 체크할때마다 작동
+          // }
+          // if(checkbox === lastChecked){
+          //     console.log('체크박스가 lastcheck일 때'); // 첫번째에선 안찍히고 두번째부터(혹은 마지막)
+          // }
+          // if(inBetween){
+          //   console.log('이프문이 inBetween일 때');
+          // }
+         
+          if(checkbox === this || checkbox === lastChecked){ // shift누르고 체크하거나 
+            inBetween = !inBetween; // inBetween이 true로 됨 -> 첫번째. 마지막 input
+            //console.log(this.getAttribute('idx'));
+            //console.log('Starting to check thiem inbetween');
+          }
+          // if끼리 무슨 관계인지 모르겠음
+          if(inBetween){
+            //console.log(this.getAttribute('idx'));
+            checkbox.checked = true;
+          }
+      });
+    }
+
+    lastChecked = this; //위치가.. 
+
+  }
+
+  checkboxes.forEach(checkbox => checkbox.addEventListener('click',handleCheck));
+
+</script>
+</body>
+</html>
